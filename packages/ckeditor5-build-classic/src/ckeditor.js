@@ -16,6 +16,7 @@ import CKFinder from '@ckeditor/ckeditor5-ckfinder/src/ckfinder';
 import EasyImage from '@ckeditor/ckeditor5-easy-image/src/easyimage';
 import Heading from '@ckeditor/ckeditor5-heading/src/heading';
 import Image from '@ckeditor/ckeditor5-image/src/image';
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 import ImageCaption from '@ckeditor/ckeditor5-image/src/imagecaption';
 import ImageStyle from '@ckeditor/ckeditor5-image/src/imagestyle';
 import ImageToolbar from '@ckeditor/ckeditor5-image/src/imagetoolbar';
@@ -30,6 +31,12 @@ import Table from '@ckeditor/ckeditor5-table/src/table';
 import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 import CloudServices from '@ckeditor/ckeditor5-cloud-services/src/cloudservices';
+import Alignment from '@ckeditor/ckeditor5-alignment/src/alignment';
+import FontFamily from '@ckeditor/ckeditor5-font/src/fontfamily';
+import FontSize from '@ckeditor/ckeditor5-font/src/fontsize';
+import FontColor from '@ckeditor/ckeditor5-font/src/fontcolor';
+import FontBackgroundColor from '@ckeditor/ckeditor5-font/src/fontbackgroundcolor';
+import AllowCustomTag from './allowStyleTags';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -50,6 +57,7 @@ ClassicEditor.builtinPlugins = [
 	ImageStyle,
 	ImageToolbar,
 	ImageUpload,
+	ImageInsert,
 	Indent,
 	Link,
 	List,
@@ -58,7 +66,16 @@ ClassicEditor.builtinPlugins = [
 	PasteFromOffice,
 	Table,
 	TableToolbar,
-	TextTransformation
+	TextTransformation,
+	Alignment,
+	FontFamily,
+	FontSize,
+	FontColor,
+	FontBackgroundColor,
+	AllowCustomTag( 'style' ),
+	AllowCustomTag( 'audio' ),
+	AllowCustomTag( 'video' ),
+	AllowCustomTag( 'button' )
 ];
 
 // Editor configuration.
@@ -66,6 +83,12 @@ ClassicEditor.defaultConfig = {
 	toolbar: {
 		items: [
 			'heading',
+			'alignment',
+			'|',
+			'fontFamily',
+			'fontSize',
+			'fontColor',
+			'fontBackgroundColor',
 			'|',
 			'bold',
 			'italic',
@@ -73,10 +96,10 @@ ClassicEditor.defaultConfig = {
 			'bulletedList',
 			'numberedList',
 			'|',
-			'outdent',
 			'indent',
+			'outdent',
 			'|',
-			'uploadImage',
+			'imageInsert',
 			'blockQuote',
 			'insertTable',
 			'mediaEmbed',
@@ -86,20 +109,14 @@ ClassicEditor.defaultConfig = {
 	},
 	image: {
 		toolbar: [
-			'imageStyle:inline',
-			'imageStyle:block',
+			'imageStyle:full',
 			'imageStyle:side',
 			'|',
-			'toggleImageCaption',
 			'imageTextAlternative'
 		]
 	},
 	table: {
-		contentToolbar: [
-			'tableColumn',
-			'tableRow',
-			'mergeTableCells'
-		]
+		contentToolbar: [ 'tableColumn', 'tableRow', 'mergeTableCells' ]
 	},
 	// This value must be kept in sync with the language defined in webpack.config.js.
 	language: 'en'
